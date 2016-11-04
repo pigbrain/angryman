@@ -1,7 +1,7 @@
 
 var cm = cm || {};
 
-(function (cm, ws, player) {
+(function (cm, ws) {
     var commandId = {
         LOGIN_C2S : '100000',
         LOGIN_S2C : '100001',
@@ -62,4 +62,4 @@ var cm = cm || {};
     cm.reqLogin = reqLogin;
     cm.reqMove = reqMove;
 
-})(cm, ws, player);
+})(cm, ws);

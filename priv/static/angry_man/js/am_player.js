@@ -1,7 +1,7 @@
 
 var player = player || {};
 
-(function (player, cm) {
+(function (player) {
 
     player.positionX = 0;
     player.positionY = 0;
@@ -10,9 +10,9 @@ var player = player || {};
 
 
     var move = function(directionX, directionY) {
-       cm.reqMove(directionX, directionY, player.positionX, player.positionY);
+       //cm.reqMove(directionX, directionY, player.positionX, player.positionY);
     }
 
     player.move = move;
 
-})(player, cm);
+})(player);

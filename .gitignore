@@ -1,0 +1,6 @@
+_build/
+ebin/
+.idea/
+.eunit/
+tmp/
+*.iml
