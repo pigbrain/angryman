@@ -2,13 +2,9 @@
 
 var ws = ws || {};
 
-(function (ws) {
-    var resultCode = {
-        SUCCESS : '200'
-    };
+(function (ws, commandHandler) {
 
     var webSocket = undefined;
-    var command = [];
 
     var init = function () {
         webSocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/am");
@@ -37,30 +33,19 @@ var ws = ws || {};
     };
 
     var onMessage = function(evt) {
-        var jsonResponse = JSON.parse(evt.data);
-        if (jsonResponse.result == resultCode.SUCCESS) {
-            command[jsonResponse.commandId](jsonResponse);
-        } else {
-            console.log(evt.data);
-        }
+        commandHandler.putCommand(JSON.parse(evt.data));
     };
 
     var onError = function(evt) {
     };
 
-    var send = function(data) {
+    var post = function(data) {
         if(webSocket.readyState == webSocket.OPEN) {
-            webSocket.send(data);
+            webSocket.send(JSON.stringify(data));
         }
-    };
-
-    var registerCommand = function(commandId, callback) {
-        command[commandId] = callback;
     };
 
     ws.init = init;
     ws.destroy = destroy;
-    ws.send = send;
-    ws.registerCommand = registerCommand;
-
-})(ws);
+    ws.post = post;
+})(ws, commandHandler);
