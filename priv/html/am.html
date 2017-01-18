@@ -61,6 +61,10 @@
 
 <div id="play" style="display:none">
     <div class="main-wrapper">
+        <input id="message" size="128">
+        <button id="messageSendBtn" style="width:90px;height:30px;" />send</button>
+    </div>
+    <div class="main-wrapper">
         <canvas id="field" width="1024" height="768"></canvas>
     </div>
 </div>
@@ -79,6 +83,22 @@
         command.commandId = commandId.LOGIN_C2S;
         command.character = $(".player.select" ).attr('id');
         command.nickname = nickname == '' ? Math.random().toString(36).substring(5) : nickname;
+
+        ws.post(command);
+    });
+
+    $("#messageSendBtn" ).on('click', function() {
+
+        var message = $("#nicknameText").val().trim();
+        if (message == null || message.length == 0) {
+            return;
+        }
+
+        alert(message);
+
+        var command = new Object();
+        command.commandId = commandId.MESSAGE_SYNC_C2S;
+        command.message = message;
 
         ws.post(command);
     });
